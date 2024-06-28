@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+
+{% block title %}Add Subscription Plan{% endblock %}
+
+{% block content %}
+<h2>Adicionar Plano</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endblock %}

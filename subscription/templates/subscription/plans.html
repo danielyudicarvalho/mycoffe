@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+
+{% block title %}Subscription Plans{% endblock %}
+
+{% block content %}
+<h2>Planos</h2>
+<div class="row">
+    {% for plan in plans %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img class="card-img-top" src="{{ plan.images.url }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ plan.name }}</h5>
+                    <p class="card-text">{{ plan.description }}</p>
+                    <p class="card-text"><strong>Monthly:</strong> ${{ plan.price_monthly }}</p>
+                    <p class="card-text"><strong>Annual:</strong> ${{ plan.price_annual }}</p>
+                    <a href="{% url 'subscribe' plan.id %}" class="btn btn-primary">Subscribe</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -15,14 +15,14 @@
     
         {% if item.description %}
             <p class="text-gray-700">
-                <strong class="text-gray-500">Description:</strong><br>
+                <strong class="text-gray-500">Descrição:</strong><br>
                 {{ item.description }}
             </p>
         {% endif %}
 
         {% if request.user == item.created_by %}
             <div class="mt-6 p-6 bg-white rounded-xl">
-                <p>This is your item!</p>
+                <p>Esse é seu item!</p>
 
                 <a href="{% url 'item:edit' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl">Edit</a>
                 <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
@@ -34,7 +34,7 @@
 </div>
 
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">Related items</h2>
+    <h2 class="mb-12 text-2xl text-center">Items relacionados</h2>
 
     <div class="grid grid-cols-3 gap-3">
         {% for item in related_items %}

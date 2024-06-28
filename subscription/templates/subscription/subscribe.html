@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block title %}Subscribe to Plan{% endblock %}
+
+{% block content %}
+<h2>Assinar plano {{ plan.name }}</h2>
+<p><strong>Description:</strong> {{ plan.description }}</p>
+<p><strong>Monthly Price:</strong> ${{ plan.price_monthly }}</p>
+<p><strong>Annual Price:</strong> ${{ plan.price_annual }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Confirm Subscription</button>
+</form>
+{% endblock %}

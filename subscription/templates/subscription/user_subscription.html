@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+
+{% block title %}My Subscriptions{% endblock %}
+
+{% block content %}
+<h2>Minhas assinaturas</h2>
+<div class="row">
+    {% for subscription in subscriptions %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ subscription.plan.name }}</h5>
+                    <p class="card-text">{{ subscription.plan.description }}</p>
+                    <p class="card-text"><strong>Start Date:</strong> {{ subscription.start_date }}</p>
+                    <p class="card-text"><strong>Status:</strong> {{ subscription.is_active|yesno:"Active,Inactive" }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
