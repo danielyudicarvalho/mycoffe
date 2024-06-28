@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Category, Item
+from .models import Category, Item, Cart
 
 def items(request):
     query = request.GET.get('query', '')
@@ -17,15 +17,15 @@ def items(request):
     if query:
         items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
-    return render(request, 'item/items.html', {
-        'items': items,
-        'query': query,
-        'categories': categories,
-        'category_id': int(category_id)
-    })
+        return render(request, 'item/items.html', {
+            'items': items,
+            'query': query,
+            'categories': categories,
+            'category_id': int(category_id)
+        })
 
-def detail(request, pk):
-    item = get_object_or_404(Item, pk=pk)
+    def detail(request, pk):
+        item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
 
     return render(request, 'item/detail.html', {
@@ -77,3 +77,37 @@ def delete(request, pk):
     item.delete()
 
     return redirect('dashboard:index')
+
+@login_required
+def add_to_cart(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    cart_item, created = Cart.objects.get_or_create(user=request.user, item=item)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('item:cart')
+
+@login_required
+def cart(request):
+    cart_items = Cart.objects.filter(user=request.user)
+
+    return render(request, 'item/cart.html', {
+        'cart_items': cart_items,
+    })
+
+@login_required
+def confirm_add_to_cart(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    return render(request, 'item/confirm_add_to_cart.html', {
+        'item': item,
+    })
+
+def detail(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
+
+    return render(request, 'item/detail.html', {
+        'item': item,
+        'related_items': related_items
+    })
