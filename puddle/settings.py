@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'conversation',
     'core',
+    'aboutus',
     'subscription',
     'dashboard',
     'item',
