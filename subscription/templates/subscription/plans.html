@@ -14,7 +14,7 @@
                     <p class="card-text">{{ plan.description }}</p>
                     <p class="card-text"><strong>Monthly:</strong> ${{ plan.price_monthly }}</p>
                     <p class="card-text"><strong>Annual:</strong> ${{ plan.price_annual }}</p>
-                    <a href="{% url 'subscribe' plan.id %}" class="btn btn-primary">Subscribe</a>
+                    <a href="{% url 'subscription:subscribe' plan.id %}" class="btn btn-primary">Subscribe</a>
                 </div>
             </div>
         </div>
