@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'subscription',
     'dashboard',
     'item',
-    'about_us'
+    'about_us',
+    'reports'
 ]
 
 MIDDLEWARE = [

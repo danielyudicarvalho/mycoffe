@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Category, Item, Cart
+from .models import Category, Item, Cart, Order, OrderItem
 
 def items(request):
     query = request.GET.get('query', '')
@@ -111,3 +111,20 @@ def detail(request, pk):
         'item': item,
         'related_items': related_items
     })
+
+@login_required
+def confirm_order(request):
+    cart_items = Cart.objects.filter(user=request.user)
+    if cart_items:
+        order = Order.objects.create(user=request.user, total_price=0)
+        total_price = 0
+        for cart_item in cart_items:
+            OrderItem.objects.create(order=order, item=cart_item.item, quantity=cart_item.quantity, price=cart_item.item.price)
+            total_price += cart_item.item.price * cart_item.quantity
+        
+        order.total_price = total_price
+        order.save()
+
+        cart_items.delete()  # Clear the cart after order is confirmed
+        return render(request, 'item/order_confirmation.html', {'order': order})
+    return redirect('item:cart')

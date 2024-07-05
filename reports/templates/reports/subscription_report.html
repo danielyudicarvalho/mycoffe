@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Subscription Report{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Subscription Report</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Plan</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sub in subscriptions %}
+                <tr>
+                    <td>{{ sub.id }}</td>
+                    <td>{{ sub.user.username }}</td>
+                    <td>{{ sub.plan.name }}</td>
+                    <td>{{ sub.start_date }}</td>
+                    <td>{{ sub.end_date }}</td>
+                    <td>{{ sub.is_active }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'reports:subscription_report_format' 'csv' %}" class="btn btn-primary">Download CSV</a>
+        <a href="{% url 'reports:subscription_report_format' 'pdf' %}" class="btn btn-secondary">Download PDF</a>
+    </div>
+{% endblock %}

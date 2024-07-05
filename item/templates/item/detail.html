@@ -28,7 +28,6 @@
                 <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Deletar</a>
             </div>
         {% else %}
-            <a href="{% url 'conversation:new' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contatar vendedor</a>
             <a href="{% url 'item:confirm_add_to_cart' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700">Adicionar ao carrinho</a>
         {% endif %}
     </div>

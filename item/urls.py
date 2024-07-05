@@ -26,4 +26,5 @@ urlpatterns = [
     path('<int:pk>/add-to-cart/', views.add_to_cart, name='add_to_cart'),
     path('cart/', views.cart, name='cart'),
     path('<int:pk>/confirm-add-to-cart/', views.confirm_add_to_cart, name='confirm_add_to_cart'),
+    path('confirm_order/', views.confirm_order, name='confirm_order'),
 ]
